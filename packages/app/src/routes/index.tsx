@@ -1,8 +1,8 @@
 import * as React from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
-import AnimeList from '../components/anime-list';
-import Information from '../components/information';
+import AnimeList from '../screens/anime-list';
+import Information from '../screens/information';
 
 const StackNav = createStackNavigator();
 

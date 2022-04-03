@@ -11,7 +11,6 @@ import {
 import {ApolloClient, ApolloProvider, InMemoryCache} from '@apollo/client';
 
 import {subplatform} from "./config";
-import LogoSrc from "./logo.png";
 import Navigator from "./routes";
 import {createStackNavigator} from "@react-navigation/stack";
 
