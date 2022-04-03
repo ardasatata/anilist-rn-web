@@ -1,3 +1,4 @@
+/* eslint-disable */
 /* eslint-disable react-native/no-inline-styles */
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-nocheck
@@ -101,6 +102,7 @@ const Information = ({route, navigation}) => {
               justifyContent: 'center',
             }}>
             {characters.length !== 0 ? (
+              // eslint-disable-next-line react/jsx-no-undef
               <List
                 data={characters}
                 style={styles.container}
