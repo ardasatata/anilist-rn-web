@@ -1,0 +1,64 @@
+{
+  "name": "anilist-fe",
+  "version": "1.0.0",
+  "private": true,
+  "workspaces": {
+    "packages": [
+      "packages/*"
+    ],
+    "nohoist": [
+      "**/@react-native-async-storage/async-storage",
+      "**/react",
+      "**/react-dom",
+      "**/react-native",
+      "**/react-native/**",
+      "**/react-native-codegen",
+      "**/react-native-dev-menu"
+    ]
+  },
+  "scripts": {
+    "reset": "find . -type dir -name node_modules | xargs rm -rf && rm -rf yarn.lock",
+    "android:metro": "yarn workspace @anilist-fe/mobile start",
+    "android:start": "yarn workspace @anilist-fe/mobile android",
+    "android:studio": "yarn workspace @anilist-fe/mobile studio",
+    "ios:metro": "yarn workspace @anilist-fe/mobile start",
+    "ios:start": "yarn workspace @anilist-fe/mobile ios",
+    "ios:xcode": "yarn workspace @anilist-fe/mobile xcode",
+    "ios:pods": "yarn workspace @anilist-fe/mobile pods",
+    "web:start": "yarn workspace @anilist-fe/web start",
+    "web:build": "yarn workspace @anilist-fe/web build",
+    "lint": "ultra -r lint",
+    "lint:fix": "ultra -r lint:fix",
+    "test": "ultra -r test",
+    "typecheck": "ultra -r typecheck"
+  },
+  "devDependencies": {
+    "@babel/plugin-proposal-class-properties": "^7.16.7",
+    "@typescript-eslint/eslint-plugin": "^4.29.3",
+    "@typescript-eslint/parser": "^4.29.3",
+    "customize-cra": "^1.0.0",
+    "eslint": "^7.32.0",
+    "eslint-config-prettier": "^8.3.0",
+    "eslint-plugin-react-app": "^6.2.2",
+    "eslint-plugin-react-native": "^3.11.0",
+    "prettier": "^2.3.2",
+    "react-app-rewired": "^2.2.1",
+    "typescript": "^4.4.2",
+    "ultra-runner": "^3.10.5"
+  },
+  "packageManager": "yarn@3.2.0",
+  "dependencies": {
+    "@apollo/client": "^3.5.10",
+    "@apollo/react-hooks": "^4.0.0",
+    "@react-navigation/native": "^6.0.10",
+    "@react-navigation/stack": "^6.2.1",
+    "@rneui/base": "^4.0.0-rc.1",
+    "@rneui/themed": "^4.0.0-rc.1",
+    "graphql": "^16.3.0",
+    "pino": "^7.9.2",
+    "react-native-gesture-handler": "^2.3.2",
+    "react-native-safe-area-context": "^4.2.4",
+    "react-native-safe-area-view": "^1.1.1",
+    "react-native-svg": "^12.3.0"
+  }
+}
