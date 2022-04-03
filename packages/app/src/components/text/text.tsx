@@ -33,9 +33,25 @@ export function Text(props: TextProps) {
         style={[
           style,
           {
-            textAlign: "center",
             fontSize: spacing[16],
-            lineHeight: spacing["large"],
+          },
+          styleOverride,
+        ]}
+      >
+        {content}
+      </ReactNativeText>
+    )
+  }
+
+  if (props.type === "body-bold") {
+    return (
+      <ReactNativeText
+        {...rest}
+        style={[
+          style,
+          {
+            fontSize: spacing[16],
+            fontWeight: 'bold'
           },
           styleOverride,
         ]}

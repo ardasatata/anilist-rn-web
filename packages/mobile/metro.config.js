@@ -15,7 +15,7 @@ module.exports = (async () => {
     transformer: {
       // Apply the Android assets resolution fix to the public path...
       publicPath: androidAssetsResolutionFix.publicPath,
-      // babelTransformerPath: require.resolve("react-native-svg-transformer"),
+      babelTransformerPath: require.resolve("react-native-svg-transformer"),
       getTransformOptions: async () => ({
         transform: {
           experimentalImportSupport: false,

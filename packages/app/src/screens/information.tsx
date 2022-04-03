@@ -28,42 +28,42 @@ import {
 const Information = ({route, navigation}) => {
   // const styles = useStyleSheet(themedStyles);
   const styles = themedStyles;
-  const {data} = route.params;
-  const [search, setSearch] = useState('');
-  const [characters, setCharacters] = useState(data.characters.nodes);
-  const [load, setLoad] = useState(false);
-
-  const renderItemHeader = (item) => (
-    <ImageBackground style={styles.itemHeader} source={{uri: item}} />
-  );
-
-  useEffect(() => {
-    setLoad(true);
-    const arr = [];
-    data.characters.nodes.map((item) => {
-      if (item.name.full.toLowerCase().includes(search.toLowerCase())) {
-        arr.push(item);
-      }
-    });
-    setCharacters(arr);
-    setLoad(false);
-  }, [search]);
-
-  const renderProductItem = ({item}) =>
-    item.name.full.toLowerCase().includes(search.toLowerCase()) ? (
-      // <Card
-      //   key={item.id}
-      //   style={styles.productItem}
-      //   header={() => renderItemHeader(item.image.large)}>
-      //   <Text category="s1">{item.name.full}</Text>
-      //   {/* <Text appearance="hint" category="c1">
-      //     {item.type}
-      //   </Text> */}
-      // </Card>
-      <View>
-        <Text>{item.name.full}</Text>
-      </View>
-    ) : null;
+  // const {data} = route.params;
+  // const [search, setSearch] = useState('');
+  // const [characters, setCharacters] = useState(data.characters.nodes);
+  // const [load, setLoad] = useState(false);
+  //
+  // const renderItemHeader = (item) => (
+  //   <ImageBackground style={styles.itemHeader} source={{uri: item}} />
+  // );
+  //
+  // useEffect(() => {
+  //   setLoad(true);
+  //   const arr = [];
+  //   data.characters.nodes.map((item) => {
+  //     if (item.name.full.toLowerCase().includes(search.toLowerCase())) {
+  //       arr.push(item);
+  //     }
+  //   });
+  //   setCharacters(arr);
+  //   setLoad(false);
+  // }, [search]);
+  //
+  // const renderProductItem = ({item}) =>
+  //   item.name.full.toLowerCase().includes(search.toLowerCase()) ? (
+  //     // <Card
+  //     //   key={item.id}
+  //     //   style={styles.productItem}
+  //     //   header={() => renderItemHeader(item.image.large)}>
+  //     //   <Text category="s1">{item.name.full}</Text>
+  //     //   {/* <Text appearance="hint" category="c1">
+  //     //     {item.type}
+  //     //   </Text> */}
+  //     // </Card>
+  //     <View>
+  //       <Text>{item.name.full}</Text>
+  //     </View>
+  //   ) : null;
 
   return (
     <SafeAreaView>
@@ -75,48 +75,48 @@ const Information = ({route, navigation}) => {
         {/*  onChangeText={(nextValue) => setSearch(nextValue)}*/}
         {/*  style={{width: '69%'}}*/}
         {/*/>*/}
-        <Button
-          onPress={() => {
-            Alert.alert(
-              `${data.title.userPreferred}`,
-              `Popularity: ${data.popularity}\nAverage Score: ${data.averageScore}\nOther Names:\n\t\t\tRomaji: ${data.title.romaji}\n\t\t\tEnglish: ${data.title.english}\n\t\t\tNative: ${data.title.native}`,
+        {/*<Button*/}
+        {/*  onPress={() => {*/}
+        {/*    Alert.alert(*/}
+        {/*      `${data.title.userPreferred}`,*/}
+        {/*      `Popularity: ${data.popularity}\nAverage Score: ${data.averageScore}\nOther Names:\n\t\t\tRomaji: ${data.title.romaji}\n\t\t\tEnglish: ${data.title.english}\n\t\t\tNative: ${data.title.native}`,*/}
 
-              [{text: 'OK', onPress: () => console.log('OK Pressed')}],
-              {cancelable: false},
-            );
-          }}
-          style={{marginLeft: 10, width: '25%'}}
-          // accessoryLeft={(props) => <Icon {...props} name="info" />}
-        >
-          INFO
-        </Button>
+        {/*      [{text: 'OK', onPress: () => console.log('OK Pressed')}],*/}
+        {/*      {cancelable: false},*/}
+        {/*    );*/}
+        {/*  }}*/}
+        {/*  style={{marginLeft: 10, width: '25%'}}*/}
+        {/*  // accessoryLeft={(props) => <Icon {...props} name="info" />}*/}
+        {/*>*/}
+        {/*  INFO*/}
+        {/*</Button>*/}
       </View>
       <View style={{height: 30, margin: 2}} />
-      <ScrollView>
-        <View style={{flex: 1, margin: 10}}>
-          <View
-            style={{
-              flexDirection: 'row',
-              flex: 1,
-              flexWrap: 'wrap',
-              justifyContent: 'center',
-            }}>
-            {characters.length !== 0 ? (
-              // eslint-disable-next-line react/jsx-no-undef
-              <List
-                data={characters}
-                style={styles.container}
-                contentContainerStyle={styles.productList}
-                numColumns={2}
-                renderItem={renderProductItem}
-              />
-            ) : (
-              <Text>No Such That !</Text>
-            )}
-          </View>
-        </View>
-        <View style={{height: 30}} />
-      </ScrollView>
+      {/*<ScrollView>*/}
+      {/*  <View style={{flex: 1, margin: 10}}>*/}
+      {/*    <View*/}
+      {/*      style={{*/}
+      {/*        flexDirection: 'row',*/}
+      {/*        flex: 1,*/}
+      {/*        flexWrap: 'wrap',*/}
+      {/*        justifyContent: 'center',*/}
+      {/*      }}>*/}
+      {/*      {characters.length !== 0 ? (*/}
+      {/*        // eslint-disable-next-line react/jsx-no-undef*/}
+      {/*        <List*/}
+      {/*          data={characters}*/}
+      {/*          style={styles.container}*/}
+      {/*          contentContainerStyle={styles.productList}*/}
+      {/*          numColumns={2}*/}
+      {/*          renderItem={renderProductItem}*/}
+      {/*        />*/}
+      {/*      ) : (*/}
+      {/*        <Text>No Such That !</Text>*/}
+      {/*      )}*/}
+      {/*    </View>*/}
+      {/*  </View>*/}
+      {/*  <View style={{height: 30}} />*/}
+      {/*</ScrollView>*/}
     </SafeAreaView>
   );
 };

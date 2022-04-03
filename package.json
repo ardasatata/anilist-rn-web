@@ -30,7 +30,9 @@
     "lint": "ultra -r lint",
     "lint:fix": "ultra -r lint:fix",
     "test": "ultra -r test",
-    "typecheck": "ultra -r typecheck"
+    "typecheck": "ultra -r typecheck",
+    "generate-image-imports": "node scripts/images.js",
+    "generate-svg-imports": "node scripts/svgs.js"
   },
   "devDependencies": {
     "@babel/plugin-proposal-class-properties": "^7.16.7",
@@ -41,8 +43,10 @@
     "eslint-config-prettier": "^8.3.0",
     "eslint-plugin-react-app": "^6.2.2",
     "eslint-plugin-react-native": "^3.11.0",
+    "metro-react-native-babel-preset": "^0.70.0",
     "prettier": "^2.3.2",
     "react-app-rewired": "^2.2.1",
+    "react-native-svg-transformer": "^1.0.0",
     "typescript": "^4.4.2",
     "ultra-runner": "^3.10.5"
   },

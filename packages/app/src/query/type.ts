@@ -1,6 +1,7 @@
 export enum AnimeSortType {
-  title = "TITLE",
+  status = "STATUS",
   popularity = "POPULARITY",
   trending = "TRENDING",
-  score = "SCORE"
+  score = "SCORE",
+  duration = "DURATION"
 }
