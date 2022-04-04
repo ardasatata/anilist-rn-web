@@ -5509,8 +5509,8 @@ __metadata:
     pino: ^7.9.2
     prettier: ^2.3.2
     react-app-rewired: ^2.2.1
-    react-native-device-info: ^8.7.0
     react-native-gesture-handler: ^2.3.2
+    react-native-gradients: ^1.2.0
     react-native-safe-area-context: ^4.2.4
     react-native-safe-area-view: ^1.1.1
     react-native-svg: ^12.3.0
@@ -16977,15 +16977,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"react-native-device-info@npm:^8.7.0":
-  version: 8.7.0
-  resolution: "react-native-device-info@npm:8.7.0"
-  peerDependencies:
-    react-native: "*"
-  checksum: 8c358815d59790343903f095e67224bfe5800c5eaba3f98bb4e058c678babbe0abde00e297325038e694674f761f3e0f56bf3e6ae50bb8ad71baac99266b5875
-  languageName: node
-  linkType: hard
-
 "react-native-gesture-handler@npm:^2.3.2":
   version: 2.3.2
   resolution: "react-native-gesture-handler@npm:2.3.2"
@@ -16999,6 +16990,19 @@ __metadata:
     react: "*"
     react-native: "*"
   checksum: d0d3cc4047036296dc3c2322fdba543a39cfa0662dd7bb5e334b2984ee342e6428c3c93521c22b16e74182ebfc39d1e89c0b8c9aff3caea47aa7af5fb7ba95a9
+  languageName: node
+  linkType: hard
+
+"react-native-gradients@npm:^1.2.0":
+  version: 1.2.0
+  resolution: "react-native-gradients@npm:1.2.0"
+  dependencies:
+    react-native-svg: ^12.1.1
+  peerDependencies:
+    prop-types: ^15.7.2
+    react: "*"
+    react-native: ">=0.60.0"
+  checksum: 0e22cbe86da7bd053fa478ad440632cb8c267e50386986b70b7d4c8f6b99894a4746f77d10f7f54a30c7147993952cdb452f55b56a0613b225a9ce0024930bb8
   languageName: node
   linkType: hard
 
@@ -17070,7 +17074,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"react-native-svg@npm:^12.3.0":
+"react-native-svg@npm:^12.1.1, react-native-svg@npm:^12.3.0":
   version: 12.3.0
   resolution: "react-native-svg@npm:12.3.0"
   dependencies:

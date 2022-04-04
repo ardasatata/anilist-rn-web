@@ -25,7 +25,7 @@ export const GET_ANIME_LIST = gql`
 
 export const GET_ANIME_DETAIL = gql`
   query AnimeDetail($id: Int) {
-    Media(id: 1){
+    Media(id: $id){
       id
       title {
         romaji
@@ -36,6 +36,14 @@ export const GET_ANIME_DETAIL = gql`
       description
       type
       bannerImage 
+      coverImage {
+        extraLarge
+        large
+        medium
+        color
+      }
+      popularity
+      isAdult
     }
   }
 `;

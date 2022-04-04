@@ -1,143 +1,101 @@
-/* eslint-disable */
-/* eslint-disable react-native/no-inline-styles */
-// eslint-disable-next-line @typescript-eslint/ban-ts-comment
-// @ts-nocheck
 import React, {useEffect, useState} from 'react';
 import {
   ImageBackground,
-  Dimensions,
-  View,
-  Alert,
   ScrollView,
-  SafeAreaView,
-  Button, StyleSheet
 } from 'react-native';
 import {Text} from "../components/text/text";
-import {VStack} from "../components/view-stack";
+import {HStack, VStack} from "../components/view-stack";
 import {Spacer} from "../components/spacer";
-import {spacing} from "../styles";
+import {color, spacing} from "../styles";
+import {useQuery} from "@apollo/react-hooks";
+import {GET_ANIME_DETAIL} from "../query";
+import {logger} from "../utils";
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+// @ts-ignore
+import {LinearGradient} from "react-native-gradients";
 
-// import {
-//   Text,
-//   List,
-//   Card,
-//   StyleService,
-//   useStyleSheet,
-//   Input,
-//   Icon,
-//   Button,
-// } from '@ui-kitten/components';
-// import Loading from './ActivityIndicator';
+const log = logger().child({module: "Detail"})
 
-const Information = ({route, navigation}) => {
-  // const styles = useStyleSheet(themedStyles);
-  const styles = themedStyles;
+export type DetailDataType = {
+  id: number
+  title: {
+    romaji: string
+    english: string
+    native: string
+    userPreferred: string
+  }
+  description: string
+  type: string
+  bannerImage: string
+  coverImage: {
+    extraLarge: string
+    large: string
+    medium: string
+    color: string
+  }
+  popularity
+}
+
+const colorList = [
+  {offset: '0%', color: '#000000', opacity: '1'},
+  {offset: '29%', color: '#000000', opacity: '0'},
+]
+
+const Information = ({route}) => {
   const {id} = route.params;
-  // const [search, setSearch] = useState('');
-  // const [characters, setCharacters] = useState(data.characters.nodes);
-  // const [load, setLoad] = useState(false);
-  //
-  // const renderItemHeader = (item) => (
-  //   <ImageBackground style={styles.itemHeader} source={{uri: item}} />
-  // );
-  //
-  // useEffect(() => {
-  //   setLoad(true);
-  //   const arr = [];
-  //   data.characters.nodes.map((item) => {
-  //     if (item.name.full.toLowerCase().includes(search.toLowerCase())) {
-  //       arr.push(item);
-  //     }
-  //   });
-  //   setCharacters(arr);
-  //   setLoad(false);
-  // }, [search]);
-  //
-  // const renderProductItem = ({item}) =>
-  //   item.name.full.toLowerCase().includes(search.toLowerCase()) ? (
-  //     // <Card
-  //     //   key={item.id}
-  //     //   style={styles.productItem}
-  //     //   header={() => renderItemHeader(item.image.large)}>
-  //     //   <Text category="s1">{item.name.full}</Text>
-  //     //   {/* <Text appearance="hint" category="c1">
-  //     //     {item.type}
-  //     //   </Text> */}
-  //     // </Card>
-  //     <View>
-  //       <Text>{item.name.full}</Text>
-  //     </View>
-  //   ) : null;
+
+  const [detail, setDetail] = useState<DetailDataType>(null);
+
+  const {loading, error, data} = useQuery(GET_ANIME_DETAIL, {
+    variables: {
+      id: id
+    }
+  });
+
+  useEffect(() => {
+    if (data) {
+      setDetail(data.Media);
+    }
+    log.info(data)
+  }, [data]);
 
   return (
-    <ScrollView>
-      <Spacer height={spacing.extraLarge3} />
-      <Text type={'body-bold'}>{id}</Text>
-      {/*<Input*/}
-      {/*  placeholder="Search By Character's Name"*/}
-      {/*  value={search}*/}
-      {/*  onChangeText={(nextValue) => setSearch(nextValue)}*/}
-      {/*  style={{width: '69%'}}*/}
-      {/*/>*/}
-      {/*<Button*/}
-      {/*  onPress={() => {*/}
-      {/*    Alert.alert(*/}
-      {/*      `${data.title.userPreferred}`,*/}
-      {/*      `Popularity: ${data.popularity}\nAverage Score: ${data.averageScore}\nOther Names:\n\t\t\tRomaji: ${data.title.romaji}\n\t\t\tEnglish: ${data.title.english}\n\t\t\tNative: ${data.title.native}`,*/}
-
-      {/*      [{text: 'OK', onPress: () => console.log('OK Pressed')}],*/}
-      {/*      {cancelable: false},*/}
-      {/*    );*/}
-      {/*  }}*/}
-      {/*  style={{marginLeft: 10, width: '25%'}}*/}
-      {/*  // accessoryLeft={(props) => <Icon {...props} name="info" />}*/}
-      {/*>*/}
-      {/*  INFO*/}
-      {/*</Button>*/}
+    <ScrollView style={{backgroundColor: '#000000'}}>
+      {detail !== null ?
+        <VStack>
+          <ImageBackground source={{uri: detail.coverImage.extraLarge}} style={{
+            height: spacing['480'],
+          }}>
+            <VStack style={{backgroundColor: 'rgba(0,0,0, 0.10)', flex: 1, justifyContent: 'flex-end'}}>
+              <LinearGradient colorList={colorList} angle={90}/>
+              <VStack horizontal={spacing.medium} bottom={spacing.medium} style={{position: 'absolute'}}>
+                <Text type={'body-bold'}
+                      style={{color: color.white, fontSize: spacing[32]}}>{detail.title.romaji}</Text>
+                <Text type={'body-bold'}
+                      style={{color: color.white, fontSize: spacing[24]}}>{detail.title.native}</Text>
+              </VStack>
+            </VStack>
+          </ImageBackground>
+          <HStack horizontal={spacing.medium} bottom={spacing.extraMedium}>
+            <Text type={'body-bold'} style={{color: color.white, fontSize: spacing[12]}}>{detail.type}</Text>
+            <Spacer width={spacing.medium}/>
+            <Text type={'body'} style={{color: color.white, fontSize: spacing[12]}}>{`${detail.popularity} `}
+              <Text type={'body-bold'} style={{color: color.white, fontSize: spacing[12]}}>
+                LIKES
+              </Text>
+            </Text>
+          </HStack>
+          <VStack horizontal={spacing.medium}>
+            {detail.description ? <Text type={'body'} style={{
+              color: color.white,
+              fontSize: spacing[14]
+            }}>{detail.description.replace(/<\/?[^>]+(>|$)/g, "")}</Text> : null}
+          </VStack>
+        </VStack>
+        : null}
+      <Spacer height={spacing.extraLarge3}/>
     </ScrollView>
   );
 };
 
-const themedStyles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: 'white',
-    // flexDirection: '',
-  },
-  productList: {
-    paddingHorizontal: 8,
-    paddingVertical: 16,
-  },
-  productItem: {
-    flex: 1,
-    margin: 8,
-    maxWidth: Dimensions.get('window').width / 2 - 24,
-    backgroundColor: 'white',
-  },
-  itemHeader: {
-    height: 200,
-    // width: Dimensions.get('window').width / 2 - 24,
-  },
-  itemFooter: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-  },
-  iconButton: {
-    paddingHorizontal: 0,
-  },
-  loadContainer: {
-    flex: 1,
-    padding: 22,
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  icon: {
-    position: 'absolute',
-    width: 32,
-    height: 32,
-    top: 0,
-    left: 0,
-  },
-});
 export default Information;
