@@ -10,9 +10,13 @@ import {
   Alert,
   ScrollView,
   SafeAreaView,
-  Text,
   Button, StyleSheet
 } from 'react-native';
+import {Text} from "../components/text/text";
+import {VStack} from "../components/view-stack";
+import {Spacer} from "../components/spacer";
+import {spacing} from "../styles";
+
 // import {
 //   Text,
 //   List,
@@ -28,7 +32,7 @@ import {
 const Information = ({route, navigation}) => {
   // const styles = useStyleSheet(themedStyles);
   const styles = themedStyles;
-  // const {data} = route.params;
+  const {id} = route.params;
   // const [search, setSearch] = useState('');
   // const [characters, setCharacters] = useState(data.characters.nodes);
   // const [load, setLoad] = useState(false);
@@ -66,58 +70,31 @@ const Information = ({route, navigation}) => {
   //   ) : null;
 
   return (
-    <SafeAreaView>
-      {/*<Loading load={load} />*/}
-      <View style={{flex: 1, margin: 10, flexDirection: 'row'}}>
-        {/*<Input*/}
-        {/*  placeholder="Search By Character's Name"*/}
-        {/*  value={search}*/}
-        {/*  onChangeText={(nextValue) => setSearch(nextValue)}*/}
-        {/*  style={{width: '69%'}}*/}
-        {/*/>*/}
-        {/*<Button*/}
-        {/*  onPress={() => {*/}
-        {/*    Alert.alert(*/}
-        {/*      `${data.title.userPreferred}`,*/}
-        {/*      `Popularity: ${data.popularity}\nAverage Score: ${data.averageScore}\nOther Names:\n\t\t\tRomaji: ${data.title.romaji}\n\t\t\tEnglish: ${data.title.english}\n\t\t\tNative: ${data.title.native}`,*/}
+    <ScrollView>
+      <Spacer height={spacing.extraLarge3} />
+      <Text type={'body-bold'}>{id}</Text>
+      {/*<Input*/}
+      {/*  placeholder="Search By Character's Name"*/}
+      {/*  value={search}*/}
+      {/*  onChangeText={(nextValue) => setSearch(nextValue)}*/}
+      {/*  style={{width: '69%'}}*/}
+      {/*/>*/}
+      {/*<Button*/}
+      {/*  onPress={() => {*/}
+      {/*    Alert.alert(*/}
+      {/*      `${data.title.userPreferred}`,*/}
+      {/*      `Popularity: ${data.popularity}\nAverage Score: ${data.averageScore}\nOther Names:\n\t\t\tRomaji: ${data.title.romaji}\n\t\t\tEnglish: ${data.title.english}\n\t\t\tNative: ${data.title.native}`,*/}
 
-        {/*      [{text: 'OK', onPress: () => console.log('OK Pressed')}],*/}
-        {/*      {cancelable: false},*/}
-        {/*    );*/}
-        {/*  }}*/}
-        {/*  style={{marginLeft: 10, width: '25%'}}*/}
-        {/*  // accessoryLeft={(props) => <Icon {...props} name="info" />}*/}
-        {/*>*/}
-        {/*  INFO*/}
-        {/*</Button>*/}
-      </View>
-      <View style={{height: 30, margin: 2}} />
-      {/*<ScrollView>*/}
-      {/*  <View style={{flex: 1, margin: 10}}>*/}
-      {/*    <View*/}
-      {/*      style={{*/}
-      {/*        flexDirection: 'row',*/}
-      {/*        flex: 1,*/}
-      {/*        flexWrap: 'wrap',*/}
-      {/*        justifyContent: 'center',*/}
-      {/*      }}>*/}
-      {/*      {characters.length !== 0 ? (*/}
-      {/*        // eslint-disable-next-line react/jsx-no-undef*/}
-      {/*        <List*/}
-      {/*          data={characters}*/}
-      {/*          style={styles.container}*/}
-      {/*          contentContainerStyle={styles.productList}*/}
-      {/*          numColumns={2}*/}
-      {/*          renderItem={renderProductItem}*/}
-      {/*        />*/}
-      {/*      ) : (*/}
-      {/*        <Text>No Such That !</Text>*/}
-      {/*      )}*/}
-      {/*    </View>*/}
-      {/*  </View>*/}
-      {/*  <View style={{height: 30}} />*/}
-      {/*</ScrollView>*/}
-    </SafeAreaView>
+      {/*      [{text: 'OK', onPress: () => console.log('OK Pressed')}],*/}
+      {/*      {cancelable: false},*/}
+      {/*    );*/}
+      {/*  }}*/}
+      {/*  style={{marginLeft: 10, width: '25%'}}*/}
+      {/*  // accessoryLeft={(props) => <Icon {...props} name="info" />}*/}
+      {/*>*/}
+      {/*  INFO*/}
+      {/*</Button>*/}
+    </ScrollView>
   );
 };
 

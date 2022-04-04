@@ -22,3 +22,20 @@ export const GET_ANIME_LIST = gql`
     }
   }
 `;
+
+export const GET_ANIME_DETAIL = gql`
+  query AnimeDetail($id: Int) {
+    Media(id: 1){
+      id
+      title {
+        romaji
+        english
+        native
+        userPreferred
+      }
+      description
+      type
+      bannerImage 
+    }
+  }
+`;

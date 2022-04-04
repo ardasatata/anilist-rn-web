@@ -5509,6 +5509,7 @@ __metadata:
     pino: ^7.9.2
     prettier: ^2.3.2
     react-app-rewired: ^2.2.1
+    react-native-device-info: ^8.7.0
     react-native-gesture-handler: ^2.3.2
     react-native-safe-area-context: ^4.2.4
     react-native-safe-area-view: ^1.1.1
@@ -16973,6 +16974,15 @@ __metadata:
     jscodeshift: ^0.11.0
     nullthrows: ^1.1.1
   checksum: d550d6e985a0d564f0ac470b19c9a2e4e78ffc0f5769ba46992a4d10130928093e9c2ada7eda0ec8bd976db4ba4c21ef410280e979226f11844aa0215335cde5
+  languageName: node
+  linkType: hard
+
+"react-native-device-info@npm:^8.7.0":
+  version: 8.7.0
+  resolution: "react-native-device-info@npm:8.7.0"
+  peerDependencies:
+    react-native: "*"
+  checksum: 8c358815d59790343903f095e67224bfe5800c5eaba3f98bb4e058c678babbe0abde00e297325038e694674f761f3e0f56bf3e6ae50bb8ad71baac99266b5875
   languageName: node
   linkType: hard
 

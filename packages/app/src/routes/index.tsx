@@ -15,8 +15,8 @@ const Navigator = () => (
         component={AnimeList}
       />
       <StackNav.Screen
-        //   options={{headerShown: false}}
-        name="Characters & Informations"
+        options={{headerShown: false}}
+        name="Detail"
         component={Information}
       />
     </StackNav.Navigator>
