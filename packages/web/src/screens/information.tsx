@@ -73,8 +73,6 @@ const Information = ({route}) => {
             height: spacing['256'],
           }}>
             <VStack style={{backgroundColor: 'rgba(0,0,0, 0.10)', flex: 1, justifyContent: 'flex-end'}}>
-              {/*<LinearGradient colorList={colorList} angle={90}/>*/}
-              {/*<div style={{}}></div>*/}
               <div
                 style={{
                   backgroundImage: "linear-gradient(rgba(0,0,0, 0),#000000)",

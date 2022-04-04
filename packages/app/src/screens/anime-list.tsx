@@ -17,7 +17,7 @@ import {Spinner} from "../components/spinner";
 import {SearchSection} from "../components/search-section";
 import {FilterSection} from "../components/filter-section";
 import {CenterText} from "../components/center-text";
-import {SearchIcon, ThumbsUp} from "../assets/svgs";
+import {SearchIcon} from "../assets/svgs";
 import {Spacer} from "../components/spacer";
 import {AscDescSort} from "../components/asc-desc-sort";
 

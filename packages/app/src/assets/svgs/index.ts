@@ -1,4 +1,5 @@
 export {default as AppleIcon} from "./appleIcon.svg"
+export {default as ArrowLeft} from "./arrowLeft.svg"
 export {default as SearchIcon} from "./searchIcon.svg"
 export {default as SortAsc} from "./sortAsc.svg"
 export {default as SortDesc} from "./sortDesc.svg"
