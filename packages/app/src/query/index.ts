@@ -1,4 +1,10 @@
 import gql from "graphql-tag";
+import {ApolloClient, InMemoryCache} from "@apollo/client";
+
+export const client = new ApolloClient({
+  uri: 'https://graphql.anilist.co',
+  cache: new InMemoryCache(),
+});
 
 export const GET_ANIME_LIST = gql`
   query AnimeList($page: Int, $perPage: Int, $sort: [MediaSort], $search: String) {

@@ -1,26 +1,17 @@
 import React from "react";
 import {
-  Image,
   Platform,
-  SafeAreaView,
   StyleSheet,
-  Text,
   View,
 } from "react-native";
 
-import {ApolloClient, ApolloProvider, InMemoryCache} from '@apollo/client';
+import {ApolloProvider} from '@apollo/client';
 
 import {subplatform} from "./config";
 import Navigator from "./routes";
 import {createStackNavigator} from "@react-navigation/stack";
+import {client} from "./query";
 
-// eslint-disable-next-line @typescript-eslint/ban-ts-comment
-// @ts-nocheck
-
-const client = new ApolloClient({
-  uri: 'https://graphql.anilist.co',
-  cache: new InMemoryCache(),
-});
 
 // export function App(): JSX.Element {
 //   const platformValue = subplatform

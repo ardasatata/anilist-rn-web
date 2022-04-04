@@ -1,18 +1,20 @@
+/* eslint-disable */
+// @ts-nocheck
 import React, {useEffect, useState} from 'react';
 import {
   ImageBackground,
   ScrollView,
 } from 'react-native';
-import {Text} from "../components/text/text";
-import {HStack, VStack} from "../components/view-stack";
-import {Spacer} from "../components/spacer";
-import {color, spacing} from "../styles";
+import {Text} from "@anilist-fe/app/src/components/text/text";
+import {HStack, VStack} from "@anilist-fe/app/src/components/view-stack";
+import {Spacer} from "@anilist-fe/app/src/components/spacer";
+import {color, spacing} from "@anilist-fe/app/src/styles";
 import {useQuery} from "@apollo/react-hooks";
-import {GET_ANIME_DETAIL} from "../query";
-import {logger} from "../utils";
+import {GET_ANIME_DETAIL} from "@anilist-fe/app/src/query";
+import {logger} from "@anilist-fe/app/src/utils";
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-ignore
-import {LinearGradient} from "react-native-gradients";
+// import {LinearGradient} from "react-native-gradients";
 
 const log = logger().child({module: "Detail"})
 
@@ -33,7 +35,7 @@ export type DetailDataType = {
     medium: string
     color: string
   }
-  popularity
+  popularity: number
 }
 
 const colorList = [
@@ -41,9 +43,13 @@ const colorList = [
   {offset: '29%', color: '#000000', opacity: '0'},
 ]
 
+// eslint-disable-next-line react/prop-types,@typescript-eslint/ban-ts-comment
+// @ts-ignore
 const Information = ({route}) => {
+  // @ts-ignore
   const {id} = route.params;
 
+  // @ts-ignore
   const [detail, setDetail] = useState<DetailDataType>(null);
 
   const {loading, error, data} = useQuery(GET_ANIME_DETAIL, {
@@ -63,17 +69,24 @@ const Information = ({route}) => {
     <ScrollView style={{backgroundColor: '#000000'}}>
       {detail !== null ?
         <VStack>
-          <ImageBackground source={{uri: detail.coverImage.extraLarge}} style={{
-            height: spacing['480'],
+          <ImageBackground source={{uri: detail.bannerImage ? detail.bannerImage : detail.coverImage.extraLarge}} style={{
+            height: spacing['256'],
           }}>
             <VStack style={{backgroundColor: 'rgba(0,0,0, 0.10)', flex: 1, justifyContent: 'flex-end'}}>
-              <LinearGradient colorList={colorList} angle={90}/>
-              <VStack horizontal={spacing.medium} bottom={spacing.medium} style={{position: 'absolute'}}>
-                <Text type={'body-bold'}
-                      style={{color: color.white, fontSize: spacing[32]}}>{detail.title.romaji}</Text>
-                <Text type={'body-bold'}
-                      style={{color: color.white, fontSize: spacing[24]}}>{detail.title.native}</Text>
-              </VStack>
+              {/*<LinearGradient colorList={colorList} angle={90}/>*/}
+              {/*<div style={{}}></div>*/}
+              <div
+                style={{
+                  backgroundImage: "linear-gradient(rgba(0,0,0, 0),#000000)",
+                  color: "darkred",
+              }}>
+                <VStack horizontal={spacing.medium} bottom={spacing.medium}>
+                  <Text type={'body-bold'}
+                        style={{color: color.white, fontSize: spacing[32]}}>{detail.title.romaji}</Text>
+                  <Text type={'body-bold'}
+                        style={{color: color.white, fontSize: spacing[24]}}>{detail.title.native}</Text>
+                </VStack>
+              </div>
             </VStack>
           </ImageBackground>
           <HStack horizontal={spacing.medium} bottom={spacing.extraMedium}>

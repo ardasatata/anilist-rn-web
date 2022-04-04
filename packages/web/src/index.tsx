@@ -7,9 +7,10 @@ import "./index.css";
 import reportWebVitals from "./reportWebVitals";
 import {subplatform} from "@anilist-fe/app/src/config";
 import {ApolloProvider} from "@apollo/client";
-import Navigator from "@anilist-fe/app/src/routes";
 
 import { ReactComponent as AppleSVG } from '@anilist-fe/app/src/assets/svgs/appleIcon.svg';
+import {client} from "@anilist-fe/app/src/query";
+import Navigator from "./routes";
 
 // ReactDOM.render(
 //   <React.StrictMode>
@@ -28,9 +29,11 @@ export function App(): JSX.Element {
     ? `${Platform.OS} (${subplatform})`
     : Platform.OS;
   return (
-    <View style={{backgroundColor: 'red'}}>
-      {/*<Navigator/>*/}
-      <AppleSVG />
+    <View style={{backgroundColor: 'red', height: '100vh'}}>
+      <ApolloProvider client={client}>
+        <Navigator/>
+        {/*<AppleSVG />*/}
+      </ApolloProvider>
     </View>
   );
 }

@@ -1,7 +1,6 @@
 import {TextInput} from "react-native";
 import {color, roundness, spacing} from "../styles";
 import React from "react";
-import {SearchIcon} from "../assets/svgs";
 import {HStack, VStack} from "./view-stack";
 import {Spacer} from "./spacer";
 
@@ -13,7 +12,7 @@ export type SearchSectionProps = {
 
 export const SearchSection = ({
                                 onChangeText = () => null,
-                                icon = <SearchIcon fill={color.dark900} height={spacing[20]} width={spacing[20]}/>,
+                                icon,
                                 placeholder = "Search..."
                               }: SearchSectionProps) => {
   return (
