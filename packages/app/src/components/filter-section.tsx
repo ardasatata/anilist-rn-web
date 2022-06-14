@@ -3,7 +3,7 @@ import {color, roundness, spacing} from "../styles";
 import React from "react";
 import {VStack} from "./view-stack";
 import {Spacer} from "./spacer";
-import {AnimeSortType} from "../query/type";
+import {AnimeSortType} from "../type";
 import {Text} from "./text/text";
 
 export type FilterSectionProps = {

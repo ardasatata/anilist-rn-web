@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, {useContext} from 'react';
 import {
   ImageBackground,
   ScrollView, StatusBar, TouchableOpacity,
@@ -7,17 +7,14 @@ import {Text} from "../components/text/text";
 import {HStack, VStack} from "../components/view-stack";
 import {Spacer} from "../components/spacer";
 import {color, spacing} from "../styles";
-import {useQuery} from "@apollo/react-hooks";
-import {GET_ANIME_DETAIL} from "../query";
-import {logger} from "../utils";
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-ignore
 import {LinearGradient} from "react-native-gradients";
-import {ArrowLeft} from "../assets/svgs";
+import {ArrowLeft, StarIcon} from "../assets/svgs";
 import {Spinner} from "../components/spinner";
 import {CenterText} from "../components/center-text";
-
-const log = logger().child({module: "Detail"})
+import useDetailAnime from "../hooks/useDetailAnime";
+import {AnimeContext} from "../hooks/AnimeContextProvider";
 
 export type DetailDataType = {
   id: number
@@ -36,7 +33,8 @@ export type DetailDataType = {
     medium: string
     color: string
   }
-  popularity
+  popularity: any
+  tags: Array<{id: number, name: string}>
 }
 
 const colorList = [
@@ -48,20 +46,9 @@ const Information = ({route, navigation}) => {
   // eslint-disable-next-line react/prop-types
   const {id} = route.params;
 
-  const [detail, setDetail] = useState<DetailDataType>(null);
+  const { loading, error, detail } = useDetailAnime(id)
 
-  const {loading, error, data} = useQuery(GET_ANIME_DETAIL, {
-    variables: {
-      id: id
-    }
-  });
-
-  useEffect(() => {
-    if (data) {
-      setDetail(data.Media);
-    }
-    log.info(data)
-  }, [data]);
+  const { favoriteToggle, favorites } = useContext(AnimeContext)
 
   if (loading && detail === undefined) {
     return (
@@ -117,6 +104,19 @@ const Information = ({route, navigation}) => {
                 LIKES
               </Text>
             </Text>
+            <VStack style={{flex:1, alignItems: 'flex-end'}} right={spacing.large}>
+              <TouchableOpacity onPress={()=> favoriteToggle(detail)}>
+                <StarIcon fill={favorites.find((fav)=> fav.id === detail.id) ? color.yellow500 : color.white} height={spacing[32]} width={spacing[32]}/>
+              </TouchableOpacity>
+            </VStack>
+          </HStack>
+          <HStack horizontal={spacing.small} bottom={spacing.medium}>
+            {detail.tags.map((item, index)=>{
+              if (index > 2) return null
+              return(
+                <Text type={'body-bold'} style={{fontSize: spacing[12], color: color.white}}>{` ${item.name},`}</Text>
+              )
+            })}
           </HStack>
           <VStack horizontal={spacing.medium}>
             {detail.description ? <Text type={'body'} style={{

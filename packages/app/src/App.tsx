@@ -11,6 +11,7 @@ import {subplatform} from "./config";
 import Navigator from "./routes";
 import {createStackNavigator} from "@react-navigation/stack";
 import {client} from "./query";
+import {AppContextProvider} from "./hooks/AnimeContextProvider";
 
 
 // export function App(): JSX.Element {
@@ -45,7 +46,9 @@ export function App(): JSX.Element {
   return (
     <View style={styles.root}>
       <ApolloProvider client={client}>
-        <Navigator/>
+        <AppContextProvider>
+          <Navigator/>
+        </AppContextProvider>
       </ApolloProvider>
     </View>
   );

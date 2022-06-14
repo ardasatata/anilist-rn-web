@@ -1,15 +1,12 @@
 /* eslint-disable react-native/no-inline-styles */
-import React, {useCallback, useEffect, useState} from 'react';
-import {useQuery} from '@apollo/react-hooks';
+import React, {useContext} from 'react';
 import {
   FlatList, Image,
   StyleSheet,
   TouchableOpacity,
   View
 } from 'react-native';
-import {GET_ANIME_LIST} from "../query";
-import {isDesc, logger} from "../utils"
-import {AnimeSortType} from "../query/type";
+import {AnimeItemType} from "../type";
 import {color, spacing} from "../styles";
 import {HStack, VStack} from "../components/view-stack";
 import {Text} from "../components/text/text";
@@ -17,50 +14,26 @@ import {Spinner} from "../components/spinner";
 import {SearchSection} from "../components/search-section";
 import {FilterSection} from "../components/filter-section";
 import {CenterText} from "../components/center-text";
-import {SearchIcon} from "../assets/svgs";
+import {SearchIcon, StarIcon} from "../assets/svgs";
 import {Spacer} from "../components/spacer";
 import {AscDescSort} from "../components/asc-desc-sort";
 
-const log = logger().child({module: "AnimeList"})
-
-const PER_PAGE = 10
+import {AnimeContext} from "../hooks/AnimeContextProvider";
 
 const AnimeList = ({navigation}: any) => {
 
-  const [anime, setAnime] = useState<Array<any>>();
-  const [search, setSearch] = useState<string>('your');
-  const [page, setPage] = useState<number>(1);
-  const [activeFilter, setActiveFilter] = useState<AnimeSortType>(AnimeSortType.popularity)
-  const [isSortDesc, setIsSortDesc] = useState<boolean>(true)
-
-  const {loading, error, data} = useQuery(GET_ANIME_LIST, {
-    variables: {
-      page: 1,
-      perPage: PER_PAGE * page,
-      search: search,
-      sort: isDesc(activeFilter, isSortDesc)
-    }
-  });
-
-  const onLoadMore = useCallback(() => {
-    !loading && setPage(page + 1)
-    log.info(page)
-  }, [page, loading])
-
-  useEffect(() => {
-    if (data) {
-      setAnime(data.Page.media);
-    }
-    log.info(data)
-  }, [data]);
-
-  useEffect(() => {
-    setPage(1)
-  }, [search]);
-
-  useEffect(() => {
-    setPage(1)
-  }, [activeFilter]);
+  const {
+    anime,
+    favorites,
+    error,
+    isSortDesc,
+    favoriteToggle,
+    onLoadMore,
+    loading,
+    setActiveFilter,activeFilter,
+    setIsSortDesc,
+    setSearch,
+  } = useContext(AnimeContext)
 
   if (loading && anime === undefined) {
     return (
@@ -74,6 +47,47 @@ const AnimeList = ({navigation}: any) => {
     );
   }
 
+  const AnimeItem = ({item, addToFavorites, favorites}:{item: AnimeItemType; addToFavorites(item: AnimeItemType): void; favorites: Array<AnimeItemType> }) => {
+    return(
+      <HStack>
+        <TouchableOpacity
+          style={{flex: 3}}
+          onPress={() => navigation.navigate('Detail', {
+            id: item.id
+          })}>
+          <HStack left={spacing.medium} vertical={spacing.small}>
+            <Image source={{uri: item.coverImage.large}} style={{
+              height: spacing[72],
+              width: spacing[72],
+            }}/>
+            <VStack left={spacing.medium}>
+              <Text numberOfLines={1} type={'body'} style={{color: color.dark900, maxWidth: spacing["128"] + spacing.extraLarge3}}>{item.title.romaji}</Text>
+              <Text style={{color: color.primary900, fontSize: spacing[12]}}>{item.title.native}</Text>
+              <HStack top={spacing.tiny}>
+                <Text style={{fontWeight: 'bold', fontSize: spacing[12]}}>{item.type}</Text>
+                <Spacer width={spacing.medium}/>
+                {/*<ThumbsUp fill={color.dark800} height={spacing[16]} width={spacing[16]} />*/}
+              </HStack>
+              <HStack>
+                {item.tags.map((tag, index)=>{
+                  if (index > 1) return null
+                  return(
+                    <Text key={`${tag.id}-${item.id}`} style={{fontSize: spacing[12]}}>{`${tag.name}, `}</Text>
+                  )
+                })}
+              </HStack>
+            </VStack>
+          </HStack>
+        </TouchableOpacity>
+        <VStack style={{flex:1, alignItems: 'flex-end'}} right={spacing.large}>
+          <TouchableOpacity onPress={()=> addToFavorites(item)}>
+            <StarIcon fill={favorites.find((fav)=> fav.id === item.id) ? color.yellow500 : color.white} height={spacing[32]} width={spacing[32]}/>
+          </TouchableOpacity>
+        </VStack>
+      </HStack>
+    )
+  }
+
   return (
     <View style={{flex: 1}}>
       <SearchSection icon={<SearchIcon fill={color.dark900} height={spacing[20]} width={spacing[20]}/>} onChangeText={(value => setSearch(value))}/>
@@ -85,28 +99,7 @@ const AnimeList = ({navigation}: any) => {
             contentContainerStyle={{}}
             data={anime}
             keyExtractor={(item) => String(item.id)}
-            renderItem={({item}) => (
-              <TouchableOpacity onPress={() => navigation.navigate('Detail', {
-                id: item.id
-              })}>
-                <HStack left={spacing.medium} vertical={spacing.small}>
-                  <Image source={{uri: item.coverImage.large}} style={{
-                    height: spacing[72],
-                    width: spacing[72],
-                  }}/>
-                  <VStack left={spacing.medium}>
-                    <Text numberOfLines={1} type={'body'} style={{color: color.dark900}}>{item.title.romaji}</Text>
-                    <Text style={{color: color.primary900, fontSize: spacing[12]}}>{item.title.native}</Text>
-                    <HStack top={spacing.tiny}>
-                      <Text style={{fontWeight: 'bold', fontSize: spacing[12]}}>{item.type}</Text>
-                      <Spacer width={spacing.medium}/>
-                      {/*<ThumbsUp fill={color.dark800} height={spacing[16]} width={spacing[16]} />*/}
-                      {/*<Text>{` ${item.popularity}`}</Text>*/}
-                    </HStack>
-                  </VStack>
-                </HStack>
-              </TouchableOpacity>
-            )}
+            renderItem={(item) => <AnimeItem item={item.item} addToFavorites={favoriteToggle} favorites={favorites} /> }
             ListFooterComponent={() => (
               <>
                 {loading ? <Spinner/> : null}

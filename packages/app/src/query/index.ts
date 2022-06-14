@@ -24,6 +24,10 @@ export const GET_ANIME_LIST = gql`
         popularity
         averageScore
         id
+        tags {
+          id
+          name
+        }
       }
     }
   }
@@ -50,6 +54,10 @@ export const GET_ANIME_DETAIL = gql`
       }
       popularity
       isAdult
+      tags {
+        id
+        name
+      }
     }
   }
 `;

@@ -3625,6 +3625,17 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@react-native-async-storage/async-storage@npm:^1.17.6":
+  version: 1.17.6
+  resolution: "@react-native-async-storage/async-storage@npm:1.17.6"
+  dependencies:
+    merge-options: ^3.0.4
+  peerDependencies:
+    react-native: ^0.0.0-0 || 0.60 - 0.68 || 1000.0.0
+  checksum: 05f01401add8a45c30cc4edad67a320d78f73cc41940e25bed96171b0f0df7268328fe98d697a29603f1eb4cbd19a0e79cdba85a084fc1a51f731416f6a07f57
+  languageName: node
+  linkType: hard
+
 "@react-native-community/cli-debugger-ui@npm:^6.0.0-rc.0":
   version: 6.0.0-rc.0
   resolution: "@react-native-community/cli-debugger-ui@npm:6.0.0-rc.0"
@@ -5493,6 +5504,7 @@ __metadata:
     "@apollo/client": ^3.5.10
     "@apollo/react-hooks": ^4.0.0
     "@babel/plugin-proposal-class-properties": ^7.16.7
+    "@react-native-async-storage/async-storage": ^1.17.6
     "@react-navigation/native": ^6.0.10
     "@react-navigation/stack": ^6.2.1
     "@rneui/base": ^4.0.0-rc.1
