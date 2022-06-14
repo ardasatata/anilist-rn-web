@@ -2,7 +2,7 @@ import {useEffect, useState} from "react";
 import {useLazyQuery} from "@apollo/react-hooks";
 import {GET_ANIME_DETAIL} from "../query";
 import {logger} from "../utils";
-import {DetailDataType} from "../screens/information";
+import {DetailDataType} from "../type";
 import {ApolloError} from "@apollo/client";
 
 const log = logger().child({module: "useChatApp"})

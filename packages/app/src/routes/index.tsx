@@ -5,6 +5,8 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import AnimeList from '../screens/anime-list';
 import Information from '../screens/information';
 import FavoriteList from "../screens/favorite-list";
+import {SearchIcon, StarIcon} from "../assets/svgs";
+import {color, spacing} from "../styles";
 
 const StackNav = createStackNavigator();
 const Tab = createBottomTabNavigator();
@@ -12,7 +14,7 @@ const Tab = createBottomTabNavigator();
 const Navigator = () => (
   <NavigationContainer>
     <Tab.Navigator>
-      <Tab.Screen name="Search" options={{headerShown: false}} >
+      <Tab.Screen name="Search" options={{headerShown: false, tabBarIcon: ({focused})=> <SearchIcon fill={focused ? color.primary800 : color.lightGrey} height={spacing[20]} width={spacing[20]}/>}} >
         {
           props => {
             return(
@@ -31,7 +33,7 @@ const Navigator = () => (
           }
         }
       </Tab.Screen>
-      <Tab.Screen name="Favorite" options={{headerShown: false}}>
+      <Tab.Screen name="Favorite" options={{headerShown: false, tabBarIcon: ({focused})=> <StarIcon fill={focused ? color.primary800 : color.lightGrey} height={spacing[20]} width={spacing[20]}/>}}>
         {
           props => {
             return(

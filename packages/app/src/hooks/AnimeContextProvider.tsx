@@ -6,7 +6,7 @@ import {useQuery} from "@apollo/react-hooks";
 import {GET_ANIME_LIST} from "../query";
 import {isDesc, logger} from "../utils";
 import AsyncStorage from "@react-native-async-storage/async-storage";
-import {DetailDataType} from "../screens/information";
+import {DetailDataType} from "../type";
 
 const log = logger().child({module: "AnimeList"})
 
@@ -71,7 +71,7 @@ export const AppContextProvider:React.FC = ({children}) => {
           if(isFavorited){
             l.splice(l.findIndex((i)=> i.id === item.id), 1)
           }else{
-            l.push(item);
+            l.push(item as AnimeItemType);
           }
           AsyncStorage.setItem('favorite_list', JSON.stringify(l));
         });

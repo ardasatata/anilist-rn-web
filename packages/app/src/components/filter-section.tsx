@@ -1,4 +1,4 @@
-import {ScrollView, StyleSheet, TouchableOpacity} from "react-native";
+import {Platform, ScrollView, StyleSheet, TouchableOpacity} from "react-native";
 import {color, roundness, spacing} from "../styles";
 import React from "react";
 import {VStack} from "./view-stack";
@@ -33,7 +33,7 @@ export const FilterSection = ({
   })
 
   return (
-    <ScrollView horizontal showsHorizontalScrollIndicator={false} style={styles.container}>
+    <ScrollView horizontal showsHorizontalScrollIndicator={Platform.OS === 'web'} style={styles.container}>
       <Spacer width={spacing.medium}/>
       {
         FILTER.map((item) => (

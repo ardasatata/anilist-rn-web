@@ -1,6 +1,6 @@
 import {AnimeItemType, AnimeSortType} from "../type";
 import {ApolloError} from "@apollo/client";
-import {DetailDataType} from "../screens/information";
+import {DetailDataType} from "../type";
 
 export type GlobalAnimeContext = {
   loading: boolean

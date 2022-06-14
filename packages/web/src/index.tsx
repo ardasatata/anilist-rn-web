@@ -8,9 +8,9 @@ import reportWebVitals from "./reportWebVitals";
 import {subplatform} from "@anilist-fe/app/src/config";
 import {ApolloProvider} from "@apollo/client";
 
-import { ReactComponent as AppleSVG } from '@anilist-fe/app/src/assets/svgs/appleIcon.svg';
 import {client} from "@anilist-fe/app/src/query";
 import Navigator from "./routes";
+import {AppContextProvider} from "@anilist-fe/app/src/hooks/AnimeContextProvider";
 
 // ReactDOM.render(
 //   <React.StrictMode>
@@ -31,8 +31,9 @@ export function App(): JSX.Element {
   return (
     <View style={{backgroundColor: 'red', height: '100vh'}}>
       <ApolloProvider client={client}>
-        <Navigator/>
-        {/*<AppleSVG />*/}
+        <AppContextProvider>
+          <Navigator/>
+        </AppContextProvider>
       </ApolloProvider>
     </View>
   );

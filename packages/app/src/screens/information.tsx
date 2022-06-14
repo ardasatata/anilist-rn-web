@@ -16,32 +16,14 @@ import {CenterText} from "../components/center-text";
 import useDetailAnime from "../hooks/useDetailAnime";
 import {AnimeContext} from "../hooks/AnimeContextProvider";
 
-export type DetailDataType = {
-  id: number
-  title: {
-    romaji: string
-    english: string
-    native: string
-    userPreferred: string
-  }
-  description: string
-  type: string
-  bannerImage: string
-  coverImage: {
-    extraLarge: string
-    large: string
-    medium: string
-    color: string
-  }
-  popularity: any
-  tags: Array<{id: number, name: string}>
-}
-
 const colorList = [
   {offset: '0%', color: '#000000', opacity: '1'},
   {offset: '29%', color: '#000000', opacity: '0'},
 ]
 
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+// @ts-ignore
+// eslint-disable-next-line react/prop-types,@typescript-eslint/explicit-module-boundary-types
 const Information = ({route, navigation}) => {
   // eslint-disable-next-line react/prop-types
   const {id} = route.params;

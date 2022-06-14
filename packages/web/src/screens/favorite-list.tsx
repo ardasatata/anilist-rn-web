@@ -1,43 +1,54 @@
 /* eslint-disable react-native/no-inline-styles */
-import React, {useContext} from 'react';
+import React, {useContext, useState} from 'react';
 import {
-  FlatList, Image,
+  FlatList, Image, ImageBackground, ScrollView,
   StyleSheet,
   TouchableOpacity,
   View
 } from 'react-native';
-import {AnimeItemType} from "../type";
-import {color, spacing} from "../styles";
-import {HStack, VStack} from "../components/view-stack";
-import {Text} from "../components/text/text";
-import {Spinner} from "../components/spinner";
-import {SearchSection} from "../components/search-section";
-import {FilterSection} from "../components/filter-section";
-import {CenterText} from "../components/center-text";
-import {SearchIcon, StarIcon} from "../assets/svgs";
-import {Spacer} from "../components/spacer";
+import {color, spacing} from "@anilist-fe/app/src/styles";
+import {HStack, VStack} from "@anilist-fe/app/src/components/view-stack";
+import {Text} from "@anilist-fe/app/src/components/text/text";
+import {Spinner} from "@anilist-fe/app/src/components/spinner";
+import {CenterText} from "@anilist-fe/app/src/components/center-text";
+import {Spacer} from "@anilist-fe/app/src/components/spacer";
+import {SearchSection} from "@anilist-fe/app/src/components/search-section";
+
+import { ReactComponent as SearchIcon } from '@anilist-fe/app/src/assets/svgs/searchIcon.svg';
+import {FilterSection} from "@anilist-fe/app/src/components/filter-section";
 import {AscDescSort} from "../components/asc-desc-sort";
+import {AnimeContext} from "@anilist-fe/app/src/hooks/AnimeContextProvider";
+import {AnimeItemType} from "@anilist-fe/app/src/type";
+import {ReactComponent as StarIcon} from "@anilist-fe/app/src/assets/svgs/starIcon.svg";
+import useDetailAnime from "@anilist-fe/app/src/hooks/useDetailAnime";
+import {DetailModal} from "../components/detail-modal";
 
-import {AnimeContext} from "../hooks/AnimeContextProvider";
 
-const AnimeList = ({navigation}: any) => {
+
+const FavoriteList = ({navigation}: any) => {
+
+  const [isModalVisible, setIsModalVisible] = useState(false);
+  const [selectedAnime, setSelected] = useState<number>(1);
+
+  const { detail } = useDetailAnime(selectedAnime)
+
+  const showModal = () => {
+    setIsModalVisible(true);
+  };
+
+  const handleOk = () => {
+    setIsModalVisible(false);
+  };
 
   const {
-    anime,
     favorites,
     error,
-    isSortDesc,
     favoriteToggle,
-    onLoadMore,
-    loading,
-    setActiveFilter,activeFilter,
-    setIsSortDesc,
-    setSearch,
   } = useContext(AnimeContext)
 
-  if (loading && anime === undefined) {
+  if (favorites.length === 0) {
     return (
-      <Spinner/>
+      <CenterText text={"Tap star icon to add item to favorites!"}/>
     );
   }
 
@@ -52,9 +63,11 @@ const AnimeList = ({navigation}: any) => {
       <HStack>
         <TouchableOpacity
           style={{flex: 3}}
-          onPress={() => navigation.navigate('Detail', {
-            id: item.id
-          })}>
+          // eslint-disable-next-line react/prop-types
+          onPress={() => {
+            setSelected(item.id)
+            showModal()
+          }}>
           <HStack left={spacing.medium} vertical={spacing.small}>
             <Image source={{uri: item.coverImage.large}} style={{
               height: spacing[72],
@@ -81,7 +94,7 @@ const AnimeList = ({navigation}: any) => {
         </TouchableOpacity>
         <VStack style={{flex:1, alignItems: 'flex-end'}} right={spacing.large}>
           <TouchableOpacity onPress={()=> addToFavorites(item)}>
-            <StarIcon fill={favorites.find((fav)=> fav.id === item.id) ? color.yellow500 : color.primary300} height={spacing[32]} width={spacing[32]}/>
+            <StarIcon fill={favorites.find((fav)=> fav.id === item.id) ? color.yellow500 : color.white} height={spacing[32]} width={spacing[32]}/>
           </TouchableOpacity>
         </VStack>
       </HStack>
@@ -90,26 +103,13 @@ const AnimeList = ({navigation}: any) => {
 
   return (
     <View style={{flex: 1}}>
-      <SearchSection icon={<SearchIcon fill={color.dark900} height={spacing[20]} width={spacing[20]}/>} onChangeText={(value => setSearch(value))}/>
-      <FilterSection activeFilter={activeFilter} onFilterPress={setActiveFilter}/>
-      {anime ? (
-        anime.length !== 0 ? (
+      {favorites ? (
+        favorites.length !== 0 ? (
           <FlatList
-            onEndReached={onLoadMore}
             contentContainerStyle={{}}
-            data={anime}
+            data={favorites}
             keyExtractor={(item) => String(item.id)}
             renderItem={(item) => <AnimeItem item={item.item} addToFavorites={favoriteToggle} favorites={favorites} /> }
-            ListFooterComponent={() => (
-              <>
-                {loading ? <Spinner/> : null}
-              </>
-            )}
-            ListHeaderComponent={()=> (
-              <HStack horizontal={spacing.medium} bottom={spacing.small}>
-                <AscDescSort isDesc={isSortDesc} onTogglePress={setIsSortDesc} />
-              </HStack>
-            )}
           />
         ) : (
           <CenterText text={"No Data Found :("}/>
@@ -119,6 +119,7 @@ const AnimeList = ({navigation}: any) => {
           <Spinner/>
         </View>
       )}
+      <DetailModal detail={detail} favorites={favorites} favoriteToggle={favoriteToggle} isModalVisible={isModalVisible} handleOk={handleOk} />
     </View>
   );
 };
@@ -135,4 +136,4 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
 });
-export default AnimeList;
+export default FavoriteList;
