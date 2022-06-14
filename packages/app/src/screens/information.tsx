@@ -104,9 +104,10 @@ const Information = ({route, navigation}) => {
                 LIKES
               </Text>
             </Text>
-            <VStack style={{flex:1, alignItems: 'flex-end'}} right={spacing.large}>
+            <Spacer/>
+            <VStack style={{alignItems: 'flex-end'}} right={spacing.large}>
               <TouchableOpacity onPress={()=> favoriteToggle(detail)}>
-                <StarIcon fill={favorites.find((fav)=> fav.id === detail.id) ? color.yellow500 : color.white} height={spacing[32]} width={spacing[32]}/>
+                <StarIcon fill={favorites.find((fav)=> fav.id === detail.id) ? color.yellow500 : color.lightGrey} height={spacing[42]} width={spacing[42]}/>
               </TouchableOpacity>
             </VStack>
           </HStack>
