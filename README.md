@@ -2,11 +2,11 @@
 
 React-native + web monorepo with graph ql api from AniList
 
-# Screenshoot & Demo
+# Demo
 
-![Screen Shot 2022-04-04 at 5 39 30 PM](https://user-images.githubusercontent.com/17568508/161837438-be17d957-2de6-4f53-9876-2d84509d453f.png)
+![ezgif-5-b62e051049](https://user-images.githubusercontent.com/17568508/173612199-45950f73-f423-4bdc-b9af-d3515357a155.gif)
 
-![anilist-fe](https://user-images.githubusercontent.com/17568508/161837965-e7ec48b3-2bd2-46f7-ab49-5696bff02f27.gif)
+![ezgif-5-6f1009c56a](https://user-images.githubusercontent.com/17568508/173612289-d6a311c5-a2a2-47fb-9b96-6eedafe0f156.gif)
 
 ## Available commands
 
